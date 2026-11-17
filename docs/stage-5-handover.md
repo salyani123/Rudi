@@ -79,7 +79,13 @@ files in Stage 4. The shared Formatters, UiHelpers and Flow files remain Stage 4
 - PASS: parsed all five new layouts, checked referenced View Binding IDs, checked
   XML/Kotlin string references and checked trailing whitespace.
 - These checks do not establish Kotlin compilation or runtime correctness.
-- Full build, lint, unit tests and device tests: **pending Stages 2/4 integration**.
+- Actual check: `gradlew.bat assembleDebug lintDebug testDebugUnitTest --console=plain`
+  failed at `:app:compileDebugKotlin`. Android resource linking and View Binding
+  generation passed. Compilation reported missing Stage 2 classes (`Choices`,
+  PickupViewModel, DraftViewModel, CentreViewModel and pickup time helpers) and
+  Stage 4 navigation/formatting helpers and ItemFragment. Consequently lint and
+  unit tests did not complete. No device test or full Kotlin compilation pass is
+  claimed. These checks remain **pending Stages 2/4 integration**.
 - Main already lacks Choices. The earlier offline check could not resolve AGP
   8.7.2 from cache. The subsequent online check resolved the plugin and installed
   the missing Build Tools 34 and SDK Platform 35.
