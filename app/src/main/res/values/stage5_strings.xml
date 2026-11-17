@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="requests_title">My requests</string>
+    <string name="requests_intro">Your preferred pickups, saved on this device.</string>
+    <string name="requests_empty">No pickup requests yet. Create one to plan your next e-waste collection.</string>
+    <string name="request_new">New pickup request</string>
+    <string name="request_title_quantity">%1$s × %2$d</string>
+    <string name="request_saved_local">Saved on this device</string>
+    <string name="request_detail_title">Pickup request</string>
+    <string name="request_summary">Item: %1$s\nDevice type: %2$s\nCondition: %3$s\nQuantity: %4$d\nAddress: %5$s\nPreferred pickup: %6$s\nNotes: %7$s</string>
+    <string name="request_no_notes">None</string>
+    <string name="request_missing">That request no longer exists.</string>
+    <string name="request_edit">Edit request</string>
+    <string name="request_delete">Delete request</string>
+    <string name="request_delete_title">Delete pickup request?</string>
+    <string name="request_delete_message">This removes the request from this device.</string>
+    <string name="request_keep">Keep request</string>
+    <string name="request_deleted">Request deleted</string>
+    <string name="request_calendar">Add to calendar</string>
+    <string name="pickup_local_notice">Local plan. Collection requires provider confirmation.</string>
+    <string name="calendar_event_title">Preferred e-waste pickup</string>
+    <string name="calendar_invalid_slot">Edit the invalid date or time slot.</string>
+    <string name="calendar_unavailable">No calendar app available.</string>
+    <string name="maps_unavailable">Install a maps app or browser.</string>
+    <string name="centres_title">Collection centres</string>
+    <string name="centres_intro">Find a drop-off point. Confirm current opening hours and acceptance before visiting.</string>
+    <string name="centres_city_label">City</string>
+    <string name="centres_device_label">Device type</string>
+    <string name="centres_city_empty">No verified centre listed for %1$s yet.</string>
+    <string name="centres_device_empty">No centres match this device. Try All devices.</string>
+    <string name="centres_retry">Retry</string>
+    <string name="centre_address_pending">Address pending</string>
+    <string name="centre_hours_label">Office hours</string>
+    <string name="centre_hours_pending">Hours to confirm</string>
+    <string name="centre_requirements_label">Drop-off requirements</string>
+    <string name="centre_contact_requirements">Contact the centre to confirm</string>
+    <string name="centre_accepted_label">Accepted devices</string>
+    <string name="centre_confirm_acceptance">Confirm with the centre</string>
+    <string name="centre_open_maps">Open in Google Maps</string>
+</resources>
