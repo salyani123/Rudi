@@ -1,0 +1,37 @@
+package com.example.rudi.data.repository
+
+import com.example.rudi.data.model.CollectionCentre
+
+object DefaultCentres {
+    val all = listOf(
+        CollectionCentre(
+            id = 1, name = "WEEE Centre", city = "Nairobi",
+            address = "Mihango, Embakasi, off Eastern Bypass",
+            hours = "Mon-Fri, 08:00-18:00", requirements = "", acceptedTypes = "",
+            mapQuery = "WEEE Centre Mihango Embakasi Nairobi Kenya",
+            sourceUrl = "https://weeecentre.com/contact",
+            verificationNote = "Address listed by the operator"
+        ),
+        CollectionCentre(
+            id = 2, name = "WEEE Centre", city = "Eldoret",
+            address = "Eldoret National Polytechnic",
+            hours = "", requirements = "", acceptedTypes = "",
+            mapQuery = "WEEE Centre Eldoret National Polytechnic Kenya",
+            sourceUrl = "https://www.kenyanews.go.ke/north-rift-residents-urged-to-drop-e-waste-at-eldoret/",
+            verificationNote = "Public drop-off reported February 2025; hours and entrance to confirm"
+        ),
+        CollectionCentre(
+            id = 3, name = "Government Training Institute", city = "Mombasa",
+            address = "Vanga Road off Nyerere Avenue",
+            hours = "", requirements = "", acceptedTypes = "", mapQuery = "",
+            sourceUrl = "https://repository.ca.go.ke/server/api/core/bitstreams/0c1db53c-9620-4c51-a62a-8e01ab3f251f/content",
+            verificationNote = "Historical official listing; current operation to confirm"
+        ),
+        CollectionCentre(
+            id = 4, name = "WEEE Centre Kisumu", city = "Kisumu",
+            address = "", hours = "", requirements = "", acceptedTypes = "", mapQuery = "",
+            sourceUrl = "https://www.greenpages.co.ke/map",
+            verificationNote = "City listing found; exact street address pending"
+        )
+    )
+}
