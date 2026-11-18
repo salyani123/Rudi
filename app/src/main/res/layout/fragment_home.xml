@@ -1,37 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center_horizontal">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to Rudi E-Waste"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp" />
-
-    <Button
-        android:id="@+id/btnStartPickup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Schedule E-Waste Pickup"
-        android:layout_marginBottom="12dp" />
-
-    <Button
-        android:id="@+id/btnViewCentres"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Browse Collection Centres"
-        android:layout_marginBottom="12dp" />
-
-    <Button
-        android:id="@+id/btnViewRequests"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="My Pickup Requests" />
-
-</LinearLayout>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/home_intro" android:textAppearance="?attr/textAppearanceBody1" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/disposeButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:minHeight="48dp" android:text="@string/home_dispose" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/pickupButton" style="?attr/materialButtonOutlinedStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:minHeight="48dp" android:text="@string/home_pickup" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="24dp" android:text="@string/home_recent" android:textAppearance="?attr/textAppearanceHeadline6" />
+    <TextView android:id="@+id/emptyText" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="12dp" android:visibility="gone" android:text="@string/home_empty" />
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/requestsList" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:nestedScrollingEnabled="false" />
+    <com.google.android.material.button.MaterialButton android:id="@+id/requestsButton" style="?attr/materialButtonOutlinedStyle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:minHeight="48dp" android:text="@string/home_all_requests" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

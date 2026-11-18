@@ -95,8 +95,22 @@ class RequestDetailFragment : Fragment(R.layout.fragment_request_detail) {
             }
         }
         viewModel.busy.observe(viewLifecycleOwner) {
-            binding.progressIndicator.isVisible = it || (current == null && !leaving)
+            binding.progressIndicator.isVisible = it || (current == null && !leaving && viewModel.readError.value != true)
             updateActions()
+        }
+        viewModel.readError.observe(viewLifecycleOwner) { failed ->
+            binding.retryButton.isVisible = failed
+            if (failed) {
+                current = null
+                setActionsEnabled(false)
+                binding.progressIndicator.isVisible = false
+                binding.summaryText.setText(R.string.request_load_failed)
+            }
+        }
+        binding.retryButton.setOnClickListener {
+            binding.progressIndicator.isVisible = true
+            binding.summaryText.text = ""
+            viewModel.select(requestId)
         }
         viewModel.message.observe(viewLifecycleOwner) { message ->
             if (message != null) {

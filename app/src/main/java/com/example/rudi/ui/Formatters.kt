@@ -1,25 +1,22 @@
 package com.example.rudi.ui
 
 import com.example.rudi.data.model.PickupRequest
-import java.text.SimpleDateFormat
-import java.util.Date
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.Locale
 
-fun displayDate(timestamp: Long): String {
-    val sdf = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault())
-    return sdf.format(Date(timestamp))
+private val displayFormat = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH)
+
+fun displayDate(iso: String): String = try {
+    LocalDate.parse(iso).format(displayFormat)
+} catch (_: DateTimeParseException) {
+    iso
 }
 
-fun itemTitle(deviceType: String, brand: String, model: String): String {
-    val parts = listOf(brand, model).filter { it.isNotBlank() }
-    val details = if (parts.isNotEmpty()) " (${parts.joinToString(" ")})" else ""
-    return "$deviceType$details"
-}
+fun itemTitle(deviceType: String, brand: String, model: String) =
+    listOf(brand, model).filter { it.isNotBlank() }.joinToString(" ").ifBlank { deviceType }
 
-fun PickupRequest.title(): String {
-    return itemTitle(deviceType, brand, model)
-}
+fun PickupRequest.title() = itemTitle(deviceType, brand, model)
 
-fun PickupRequest.slotText(): String {
-    return "$pickupDate • $timeSlot"
-}
+fun PickupRequest.slotText() = displayDate(pickupDate) + " · " + timeSlot.replace('-', '–')

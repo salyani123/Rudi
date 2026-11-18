@@ -22,6 +22,8 @@ class CentresFragment : Fragment(R.layout.fragment_centres) {
         screenTitle(getString(R.string.centres_title))
         binding.citySpinner.bindChoices(Choices.cities, centreModel.city, centreModel::setCity)
         binding.deviceSpinner.bindChoices(Choices.deviceFilter, centreModel.device, centreModel::setDevice)
+        binding.citySpinner.isSaveEnabled = false
+        binding.deviceSpinner.isSaveEnabled = false
 
         val adapter = CentreAdapter { openCentreMap(requireContext(), it.mapQuery) }
         binding.centresList.layoutManager = LinearLayoutManager(requireContext())
@@ -39,7 +41,9 @@ class CentresFragment : Fragment(R.layout.fragment_centres) {
     }
 
     private fun render() {
-        val result = centreModel.centres.value
+        val result = centreModel.centres.value?.takeIf {
+            it.city == centreModel.city && it.device == centreModel.device
+        }
         val loading = centreModel.loading.value == true
         val error = centreModel.error.value
         val status = error ?: centreModel.notice.value

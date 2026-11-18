@@ -3,61 +3,43 @@ package com.example.rudi.ui
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import com.example.rudi.R
 import com.example.rudi.databinding.FragmentItemBinding
+import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.activityViewModels
 import com.example.rudi.ui.viewmodel.Choices
 import com.example.rudi.ui.viewmodel.DraftViewModel
 
 class ItemFragment : Fragment(R.layout.fragment_item) {
     private var _binding: FragmentItemBinding? = null
-    private val binding get() = _binding!!
-    private val draftViewModel: DraftViewModel by activityViewModels()
+    private val binding get() = requireNotNull(_binding)
+    private val draft: DraftViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentItemBinding.bind(view)
-        (activity as? MainActivity)?.setScreenTitle("Device Details")
-
-        var selectedDeviceType = Choices.deviceTypes.first()
-        binding.spinnerDeviceType.bindChoices(Choices.deviceTypes, draftViewModel.deviceType.ifEmpty { null }) {
-            selectedDeviceType = it
+        screenTitle(if (draft.editingId == 0L) "Item details" else "Edit item")
+        binding.typeSpinner.bindChoices(Choices.deviceTypes, draft.get("deviceType")) { draft.put("deviceType", it) }
+        binding.conditionSpinner.bindChoices(Choices.conditions, draft.get("condition")) { draft.put("condition", it) }
+        mapOf(
+            binding.brandInput to "brand", binding.modelInput to "model",
+            binding.quantityInput to "quantity", binding.notesInput to "notes"
+        ).forEach { (input, key) ->
+            input.setText(draft.get(key))
+            input.doAfterTextChanged { draft.put(key, it.toString()) }
         }
-
-        var selectedCondition = Choices.conditions.first()
-        binding.spinnerCondition.bindChoices(Choices.conditions, draftViewModel.condition.ifEmpty { null }) {
-            selectedCondition = it
-        }
-
-        binding.etBrand.setText(draftViewModel.brand)
-        binding.etModel.setText(draftViewModel.model)
-        binding.etQuantity.setText(if (draftViewModel.quantity > 0) draftViewModel.quantity.toString() else "1")
-        binding.etNotes.setText(draftViewModel.notes)
-
-        binding.btnNext.setOnClickListener {
-            val brand = binding.etBrand.text.toString().trim()
-            val model = binding.etModel.text.toString().trim()
-            val qtyStr = binding.etQuantity.text.toString().trim()
-            val quantity = qtyStr.toIntOrNull() ?: 1
-
-            if (brand.isEmpty()) {
-                binding.etBrand.error = "Brand is required"
-                return@setOnClickListener
-            }
-
-            draftViewModel.deviceType = selectedDeviceType
-            draftViewModel.brand = brand
-            draftViewModel.model = model
-            draftViewModel.condition = selectedCondition
-            draftViewModel.quantity = quantity
-            draftViewModel.notes = binding.etNotes.text.toString().trim()
-
-            startFlow("guidance")
+        binding.continueButton.setOnClickListener {
+            val errors = draft.draft().itemErrors()
+            binding.quantityInput.error = errors["quantity"]
+            if (errors.isNotEmpty()) return@setOnClickListener
+            binding.continueButton.isEnabled = false
+            val next = if (draft.route == "dispose") GuidanceFragment() else PickupFragment()
+            (requireActivity() as MainActivity).openScreen(next)
         }
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 }
